@@ -1,6 +1,6 @@
 import Die from "./components/Die"
 import React from "react"
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid'
 function App() {
   const [dice,setDice] = React.useState(allNewDice())
 
@@ -9,12 +9,14 @@ function App() {
     for (let i = 0;i< 10; i++){
       numsArray.push({
       value: Math.floor((Math.random() * 6) + 1),
-      isHeld: false})
+      isHeld: true,
+      id: nanoid()
+      })
     }
     return numsArray
   }
   
-  let dieJSXEls = dice.map(die => <Die key={uuidv4()} value={die.value}/>)
+  let dieJSXEls = dice.map(die => <Die key={die.id} value={die.value}/>)
   function rollDice(){
     setDice(prevDice => {
       const newDice = prevDice.map((diceObject) => {
